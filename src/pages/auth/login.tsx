@@ -2,6 +2,10 @@ import { getProviders, signIn } from 'next-auth/react';
 import { InferGetServerSidePropsType } from 'next';
 import Image from 'next/image';
 
+interface BtnClass {
+  [key: string]: string;
+}
+
 const login = ({
   providers,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -18,6 +22,12 @@ const login = ({
           <div className='flexjustify-center'>
             {providers &&
               Object.values(providers).map((provider) => {
+                const btnClass: BtnClass = {
+                  GitHub:
+                    'text-white focus:outline-none  bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900',
+                  Google:
+                    'text-white focus:outline-none  bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900',
+                };
                 return (
                   <div key={provider.name}>
                     <button
@@ -28,8 +38,7 @@ const login = ({
                         })
                       }
                     >
-                      <span className='absolute bottom-0 left-0 mb-9 ml-9 h-48 w-48 -translate-x-full translate-y-full rotate-[-40deg] rounded bg-slate-800 transition-all duration-500 ease-out group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0'></span>
-                      <span className='relative w-full text-left text-black transition-colors duration-300 ease-in-out group-hover:text-white'>
+                      <span className={btnClass[provider.name]}>
                         Sign in with {provider.name}
                       </span>
                     </button>
