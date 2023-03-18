@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  # PostgresQL
+  postgres:
+    # Docker Image:postgres:12-alpine
+    image: postgres:12-alpine
+    # コンテナ名。
+    container_name: postgres
+    # 環境変数
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_DB=mydb
+    # データの永続化
+    volumes:
+      # postgresディレクトリを/var/lib/postgresql/dataにマウント
+      - postgres:/var/lib/postgresql/data
+    # ポート指定
+    ports:
+      - 5432:5432
+# データの永続化
+volumes:
+  postgres:
