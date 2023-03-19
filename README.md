@@ -1,4 +1,4 @@
-## 認証付き記事投稿アプリ
+## [NextAuth,Prisma]認証付き記事投稿アプリ
 
 こちらを参考にさせて頂きました。
 https://zenn.dev/farstep/books/7acd1a7fee7e18
