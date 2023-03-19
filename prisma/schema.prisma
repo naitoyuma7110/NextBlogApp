@@ -39,14 +39,14 @@ model Session {
 }
 
 model User {
-  id            Int  @id @default(autoincrement())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
-  bookmarks     Bookamrk[]
+  id              Int  @id @default(autoincrement())
+  name            String?
+  email           String?   @unique
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  likesArticles   Bookamrk[]
 }
 
 model VerificationToken {
@@ -58,10 +58,10 @@ model VerificationToken {
 }
 
 model Article {
-  id          Int     @id @default(autoincrement())
-  title       String
-  content     String
-  bookmarks    Bookamrk[]
+  id              Int     @id @default(autoincrement())
+  title           String
+  content         String
+  isLikedUsers    Bookamrk[]
 }
 
 // 中間テーブルは明示的に作成
