@@ -4,6 +4,7 @@ import { ArticlesProps } from '@/types/ArticlesProps';
 
 // Prisma Client をインスタンス化したもの利用して、データベースからデータを取得します
 import prisma from '@/lib/prisma';
+import Image from 'next/image';
 
 type Props = {
   articles: ArticlesProps[];
@@ -20,9 +21,14 @@ const Articles = (props: Props) => {
               className='w-full cursor-pointer px-2 lg:w-4/12'
               onClick={() => Router.push(`/articles/${article.id}`)}
             >
-              <div className='relative mt-4 flex flex-col'>
-                <div className='flex-auto px-4 py-5'>
-                  <div className='text-blueGray-500 mb-5 inline-flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 text-center shadow-sm'></div>
+              <div className='mt-4 px-4  flex flex-col'>
+                <Image
+                  src='/images/github-icon.png'
+                  alt='author'
+                  width={40}
+                  height={40}
+                />
+                <div className='flex-auto py-3'>
                   <h6 className='mb-1 text-xl font-semibold'>
                     {article.title}
                   </h6>
