@@ -38,6 +38,14 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
 model User {
   id              Int  @id @default(autoincrement())
   name            String?
@@ -47,14 +55,6 @@ model User {
   accounts        Account[]
   sessions        Session[]
   likesArticles   Bookamrk[]
-}
-
-model VerificationToken {
-  identifier String
-  token      String   @unique
-  expires    DateTime
-
-  @@unique([identifier, token])
 }
 
 model Article {
