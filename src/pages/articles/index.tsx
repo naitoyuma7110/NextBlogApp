@@ -1,15 +1,12 @@
-import { Article, User } from '@prisma/client';
 import { GetStaticProps } from 'next';
 import Router from 'next/router';
-// Prisma Client をインスタンス化したもの利用して、データベースからデータを取得します
-import prisma from '@/../lib/prisma';
+import { ArticlesProps } from '@/types/ArticlesProps';
 
-type ArticleProps = Article & {
-  users: User[];
-};
+// Prisma Client をインスタンス化したもの利用して、データベースからデータを取得します
+import prisma from '@/lib/prisma';
 
 type Props = {
-  articles: ArticleProps[];
+  articles: ArticlesProps[];
 };
 
 const Articles = (props: Props) => {
