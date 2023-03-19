@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import ProtectedRoute from './ProtectedRoute';
 
+//  authRoutesに指定したrouteのみprotectedコンポーネントにより保護する
 const authRoutes = ['/mypage', '/articles/[id]'];
 
-//  authRoutesに指定したrouteのみprotectedコンポーネントにより保護する
 // それ以外は通常通り表示
 const AuthWrapper = ({ children }: { children: React.ReactNode }) => {
   const session = useSession();

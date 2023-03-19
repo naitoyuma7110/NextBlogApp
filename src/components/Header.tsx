@@ -12,7 +12,7 @@ const Header = () => {
             <div className='flex w-full justify-center font-extrabold text-white lg:w-1/2 lg:justify-start'>
               <Link href='/'>
                 <span className='text-2xl text-gray-900 no-underline hover:text-gray-900 hover:no-underline'>
-                  <span className=' text-gray-200'>BOOK-APP</span>
+                  <span className=' text-gray-200'>POST-APP</span>
                 </span>
               </Link>
             </div>

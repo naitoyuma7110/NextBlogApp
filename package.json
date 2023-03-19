@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev-log": "cross-env NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -13,6 +14,7 @@
     "@prisma/client": "^4.11.0",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
+    "cross-env": "^7.0.3",
     "eslint-config-next": "13.2.4",
     "next": "13.2.4",
     "next-auth": "^4.20.1",
