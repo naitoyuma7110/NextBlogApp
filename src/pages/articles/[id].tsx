@@ -20,6 +20,16 @@ async function addBookmark(id: number): Promise<void> {
   Router.push(`/articles/${id}`);
 }
 
+async function removeBookmark(id: number): Promise<void> {
+  await fetch(
+    process.env.NEXT_PUBLIC_VERCEL_URL + `/api/bookmark/remove/${id}`,
+    {
+      method: 'PUT',
+    }
+  );
+  Router.push(`/articles/${id}`);
+}
+
 const Article = (props: ArticleProps) => {
   return (
     <div className='container mx-auto'>
@@ -35,6 +45,7 @@ const Article = (props: ArticleProps) => {
             <button
               type='button'
               className='mt-5 inline-flex items-center rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'
+              onClick={() => removeBookmark(props.article.id)}
             >
               Remove Bookmark
               <span className='ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-200 text-xs font-semibold text-red-800'>
