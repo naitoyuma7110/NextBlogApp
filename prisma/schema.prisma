@@ -55,6 +55,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
   likesArticles   Bookmark[]
+  postArticles    Article[]
 }
 
 model Article {
@@ -62,6 +63,8 @@ model Article {
   title           String
   content         String
   isLikedUsers    Bookmark[]
+  author          User?    @relation(fields: [authorUserId], references: [id])
+  authorUserId    Int?
 }
 
 // 中間テーブルは明示的に作成
