@@ -9,12 +9,22 @@ type Props = {
   bookmarkedArticle: ArticlesProps[];
 };
 
+async function removeBookmark(id: number): Promise<void> {
+  await fetch(
+    process.env.NEXT_PUBLIC_VERCEL_URL + `/api/bookmark/remove/${id}`,
+    {
+      method: 'PUT',
+    }
+  );
+  // TODO:ページ遷移による画面更新を変更できないものか…
+  Router.push('/mypage');
+}
+
 const MypageBookmarkedArticles = (props: Props) => {
   console.log(props);
   return (
     <div className='container mx-auto px-6 py-16'>
       {props.bookmarkedArticle.length > 0 ? (
-        // ブックマークしている記事が存在する場合、記事の一覧を表示します
         <div className='mx-auto sm:w-8/12 lg:w-6/12 xl:w-[40%]'>
           <div className='overflow-x-auto'>
             <h1 className='mb-8 text-center text-3xl'>
@@ -37,16 +47,18 @@ const MypageBookmarkedArticles = (props: Props) => {
                         </p>
                         <div className='font-medium text-gray-400'>
                           {article.isLikedUsers.length > 1
-                            ? //  ここでは user という単語の単数形と複数形の切り替えを行なっています
-                              `${article.isLikedUsers.length} users`
+                            ? `${article.isLikedUsers.length} users`
                             : `${article.isLikedUsers.length} user`}{' '}
                           bookmarked this article
                         </div>
                       </div>
                     </td>
                     <td className='text-center font-medium'>
-                      <span className='mr-2 cursor-pointer rounded bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800 dark:bg-red-200 dark:text-red-900'>
-                        DELETE
+                      <span
+                        className='mr-2 cursor-pointer rounded bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800 dark:bg-red-200 dark:text-red-900'
+                        onClick={() => removeBookmark(article.id)}
+                      >
+                        いいね解除
                       </span>
                     </td>
                   </tr>
@@ -73,37 +85,3 @@ const MypageBookmarkedArticles = (props: Props) => {
 };
 
 export default MypageBookmarkedArticles;
-
-// export const getServerSide GetServerSideProps = async ({ req, res }) => {
-//   const session = await getSession({ req });
-//   if (!session) {
-//     res.statusCode = 401;
-//     return { props: { articles: null } };
-//   }
-
-//   const data = await prisma.article.findMany({
-//     where: {
-//       isLikedUsers: {
-//         some: {
-//           user: {
-//             email: session.user?.email as string,
-//           },
-//         },
-//       },
-//     },
-//     include: {
-//       isLikedUsers: {
-//         include: {
-//           user: true,
-//         },
-//       },
-//     },
-//   });
-//   const articles = JSON.parse(JSON.stringify(data));
-
-//   console.log(articles[0].isLikedUsers);
-
-//   return {
-//     props: { articles },
-//   };
-// };
