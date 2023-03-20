@@ -18,7 +18,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         isLikedUsers: {
           create: {
             user: {
-              connect: { email: session?.user?.email },
+              connect: { email: session.user.email },
             },
           },
         },
