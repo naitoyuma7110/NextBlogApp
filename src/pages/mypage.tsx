@@ -17,8 +17,8 @@ const Mypage = (props: Props) => {
   return (
     <>
       <p>Mypage</p>
-      <MypageBookmarkedArticles {...props}></MypageBookmarkedArticles>
       <MypageMypostArticles {...props}></MypageMypostArticles>
+      <MypageBookmarkedArticles {...props}></MypageBookmarkedArticles>
     </>
   );
 };

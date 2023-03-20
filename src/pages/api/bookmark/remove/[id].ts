@@ -15,7 +15,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
         email: session?.user?.email,
       },
     });
-    const userId = user!.id;
     const result = await prisma.article.update({
       where: {
         id: Number(req.query.id),
@@ -23,7 +22,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       data: {
         isLikedUsers: {
           deleteMany: {
-            userId: userId,
+            userId: user!.id,
           },
         },
       },
