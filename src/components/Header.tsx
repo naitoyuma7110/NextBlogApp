@@ -31,6 +31,11 @@ const Header = () => {
                       </Link>
                     </li>
                     <li className='py-1 px-4 text-white no-underline'>
+                      <Link href='/articles/post'>
+                        <span>Post</span>
+                      </Link>
+                    </li>
+                    <li className='py-1 px-4 text-white no-underline'>
                       <button onClick={() => signOut()}>
                         <span>Log out</span>
                       </button>

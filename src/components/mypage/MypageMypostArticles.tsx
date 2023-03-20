@@ -13,10 +13,18 @@ const MypageMypostArticles = (props: Props) => {
   return (
     <div className='container mx-auto px-6 py-16'>
       {props.myPostArticle.length > 0 ? (
-        // ブックマークしている記事が存在する場合、記事の一覧を表示します
         <div className='mx-auto sm:w-8/12 lg:w-6/12 xl:w-[40%]'>
           <div className='overflow-x-auto'>
             <h1 className='mb-8 text-center text-3xl'>All articles you post</h1>
+            <div className='text-center my-5'>
+              <Link
+                type='button'
+                className='py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800'
+                href='/articles/post'
+              >
+                New Post
+              </Link>
+            </div>
             <table className='w-full table-auto'>
               <tbody className='divide-y divide-slate-100 text-sm font-medium'>
                 {props.myPostArticle.map((article) => (
@@ -41,8 +49,8 @@ const MypageMypostArticles = (props: Props) => {
                       </div>
                     </td>
                     <td className='text-center font-medium'>
-                      <span className='mr-2 cursor-pointer rounded bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800 dark:bg-red-200 dark:text-red-900'>
-                        DELETE
+                      <span className='mr-2 cursor-pointer rounded bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800 dark:bg-green-200 dark:text-green-900'>
+                        編集
                       </span>
                     </td>
                   </tr>
