@@ -3,6 +3,7 @@ import { getSession } from 'next-auth/react';
 import prisma from '@/lib/prisma';
 import { Article, User } from '@prisma/client';
 import Router from 'next/router';
+import Image from 'next/image';
 
 type ArticleWithBookmarkUser = Article & {
   isLikedUsers: User[];
@@ -35,8 +36,14 @@ const Article = (props: ArticleProps) => {
     <div className='container mx-auto'>
       <div className='my-12 flex justify-center p-12'>
         <div className='ml-auto mr-auto w-full lg:w-8/12'>
-          <div className='text-lightBlue-500 bg-lightBlue-200 mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-3 text-center shadow-sm'></div>
-          <h3 className='text-3xl font-semibold'>{props.article.title}</h3>
+          <Image
+            src='/images/github-icon.png'
+            // src={props.article.isLikedUsers[0].image!}
+            alt='author'
+            width={60}
+            height={60}
+          />
+          <h3 className='my-3 text-3xl font-semibold'>{props.article.title}</h3>
           <p className='text-blueGray-500 mt-4 text-lg leading-relaxed'>
             {props.article.content}
           </p>
