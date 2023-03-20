@@ -38,7 +38,6 @@ const Article = (props: ArticleProps) => {
         <div className='ml-auto mr-auto w-full lg:w-8/12'>
           <Image
             src='/images/github-icon.png'
-            // src={props.article.isLikedUsers[0].image!}
             alt='author'
             width={60}
             height={60}
