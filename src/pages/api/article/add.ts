@@ -3,7 +3,6 @@ import prisma from '@/lib/prisma';
 import { getSession } from 'next-auth/react';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  // 認証情報の取得
   const session = await getSession({ req });
 
   if (session?.user?.email && req.body.title && req.body.content) {
