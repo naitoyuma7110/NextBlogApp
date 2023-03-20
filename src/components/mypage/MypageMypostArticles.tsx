@@ -49,7 +49,12 @@ const MypageMypostArticles = (props: Props) => {
                       </div>
                     </td>
                     <td className='text-center font-medium'>
-                      <span className='mr-2 cursor-pointer rounded bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800 dark:bg-green-200 dark:text-green-900'>
+                      <span
+                        className='mr-2 cursor-pointer rounded bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800 dark:bg-green-200 dark:text-green-900'
+                        onClick={() =>
+                          Router.push(`/articles/edit/${article.id}`)
+                        }
+                      >
                         編集
                       </span>
                     </td>

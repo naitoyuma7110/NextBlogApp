@@ -16,7 +16,6 @@ type Props = {
 const Mypage = (props: Props) => {
   return (
     <>
-      <p>Mypage</p>
       <MypageMypostArticles {...props}></MypageMypostArticles>
       <MypageBookmarkedArticles {...props}></MypageBookmarkedArticles>
     </>
