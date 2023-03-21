@@ -4,9 +4,11 @@ import { articles } from './data/articles';
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.article.deleteMany();
-  await prisma.article.createMany({
-    data: articles,
+  return await prisma.$transaction(async (prisma) => {
+    await prisma.article.deleteMany();
+    await prisma.article.createMany({
+      data: articles,
+    });
   });
 }
 
