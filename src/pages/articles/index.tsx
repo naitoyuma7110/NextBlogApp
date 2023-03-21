@@ -16,20 +16,35 @@ const Articles = (props: Props) => {
       <div className='mt-10 w-full px-8'>
         <div className='flex flex-wrap'>
           {props.articles.map((article) => (
-            <div
-              key={article.id}
-              className='w-full cursor-pointer px-2 lg:w-4/12'
-              onClick={() => Router.push(`/articles/${article.id}`)}
-            >
+            <div key={article.id} className='w-full px-2 lg:w-4/12'>
               <div className='mt-4 px-4  flex flex-col'>
-                <Image
-                  src='/images/github-icon.png'
-                  alt='author'
-                  width={40}
-                  height={40}
-                />
+                <div className='flex items-center space-x-4 cursor-pointer'>
+                  <div className='flex-shrink-0'>
+                    <Image
+                      src={article.author?.image || '/images/github-icon.png'}
+                      alt='author'
+                      width={40}
+                      height={40}
+                      className='rounded-full shadow-lg'
+                    />
+                  </div>
+                  <div className='flex-1 min-w-0 '>
+                    <p className='text-sm font-medium text-gray-600 truncate dark:text-white'>
+                      {article.author.name}
+                    </p>
+                    <p className='text-sm text-gray-500 truncate dark:text-gray-400'>
+                      {article.author.email}
+                    </p>
+                  </div>
+                  <div className='inline-flex items-center text-base font-semibold text-gray-900 dark:text-white'>
+                    投稿者のプロフィール
+                  </div>
+                </div>
                 <div className='flex-auto py-3'>
-                  <h6 className='mb-1 text-xl font-semibold'>
+                  <h6
+                    className='mb-1 text-xl font-semibold cursor-pointer'
+                    onClick={() => Router.push(`/articles/${article.id}`)}
+                  >
                     {article.title}
                   </h6>
                   <p className='text-blueGray-500 mb-4 truncate hover:text-clip'>
@@ -49,7 +64,11 @@ export default Articles;
 
 // GetStaticProps:サーバーサイドでbuild時のみ実行(Clientに公開されない)
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = await prisma.article.findMany();
+  const articles = await prisma.article.findMany({
+    include: {
+      author: true,
+    },
+  });
   return {
     props: { articles },
   };

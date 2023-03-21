@@ -6,18 +6,22 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession({ req });
 
   if (session?.user?.email) {
-    const user = prisma.user.findUnique({
+    const loginUser = await prisma.user.findUnique({
       where: {
         email: session.user.email,
       },
+      select: {
+        id: true,
+      },
     });
-    const result = await prisma.article.update({
+    const result = await prisma.article.deleteMany({
       where: {
         id: Number(req.query.id),
-      },
-      data: {
-        title: req.body.title,
-        content: req.body.content,
+        AND: {
+          author: {
+            id: loginUser!.id,
+          },
+        },
       },
     });
     res.json(result);

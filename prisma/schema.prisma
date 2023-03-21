@@ -55,7 +55,7 @@ model User {
   accounts        Account[]
   sessions        Session[]
   likesArticles   Bookmark[]
-  postArticles    Article[]
+  postArticles    Article[] 
 }
 
 model Article {
@@ -63,16 +63,15 @@ model Article {
   title           String
   content         String
   isLikedUsers    Bookmark[]
-  author          User?    @relation(fields: [authorUserId], references: [id])
-  authorUserId    Int?
+  author          User?    @relation(fields: [authorUserId], references: [id])  
+  authorUserId    Int?    
 }
 
 // 中間テーブルは明示的に作成
 model Bookmark {
   id          Int       @id @default(autoincrement())
-  user        User?     @relation(fields: [userId], references: [id])
+  user        User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      Int?
-  article     Article?  @relation(fields: [articleId], references: [id])
+  article     Article?  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   articleId   Int?
-
 }
