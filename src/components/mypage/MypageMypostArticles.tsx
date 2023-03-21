@@ -17,12 +17,12 @@ const MypageMypostArticles = (props: Props) => {
           <div className='overflow-x-auto'>
             <h1 className='mb-8 text-center text-3xl'>All articles you post</h1>
             <div className='text-center my-5'>
-              <Link
-                type='button'
-                className='py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800'
-                href='/articles/post'
-              >
-                New Post
+              <Link href='/articles/post'>
+                <span className='group mt-5 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 font-medium text-gray-900 hover:text-white focus:ring-4 focus:ring-blue-300 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white dark:focus:ring-blue-800'>
+                  <span className='rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900'>
+                    New Post
+                  </span>
+                </span>
               </Link>
             </div>
             <table className='w-full table-auto'>
@@ -43,14 +43,14 @@ const MypageMypostArticles = (props: Props) => {
                         <div className='font-medium text-gray-400'>
                           {article.isLikedUsers.length > 1
                             ? `${article.isLikedUsers.length} users`
-                            : `${article.isLikedUsers.length} user`}{' '}
+                            : `${article.isLikedUsers.length} user`}
                           bookmarked this article
                         </div>
                       </div>
                     </td>
                     <td className='text-center font-medium'>
                       <span
-                        className='mr-2 cursor-pointer rounded bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800 dark:bg-green-200 dark:text-green-900'
+                        className='mr-2 cursor-pointer rounded bg-green-100 text-md px-2.5 py-2 text-green-800 dark:bg-green-200 dark:text-green-900'
                         onClick={() =>
                           Router.push(`/articles/edit/${article.id}`)
                         }
@@ -67,11 +67,11 @@ const MypageMypostArticles = (props: Props) => {
       ) : (
         // ブックマークしている記事が存在しない場合、記事の一覧ページへのリンクを表示します
         <div className='text-center'>
-          <h1 className='text-3xl'>No articles bookmarked</h1>
-          <Link href='/articles'>
+          <h1 className='text-3xl'>No articles Posted</h1>
+          <Link href='/articles/post'>
             <span className='group mt-5 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 font-medium text-gray-900 hover:text-white focus:ring-4 focus:ring-blue-300 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white dark:focus:ring-blue-800'>
               <span className='rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900'>
-                Find Articles
+                New Post
               </span>
             </span>
           </Link>
