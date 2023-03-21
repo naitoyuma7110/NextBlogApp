@@ -12,7 +12,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     // // deleteManyで複数一致を許容すれば実行可能
     const user = await prisma.user.findUnique({
       where: {
-        email: session.user.email,
+        email: session?.user?.email,
       },
     });
     const result = await prisma.article.update({

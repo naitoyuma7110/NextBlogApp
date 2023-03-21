@@ -8,7 +8,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (session?.user?.email && req.body.title && req.body.content) {
     const loginUser = await prisma.user.findUnique({
       where: {
-        email: session.user.email as string,
+        email: session.user?.email as string,
       },
       select: {
         id: true,
