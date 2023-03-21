@@ -55,7 +55,7 @@ const MypageBookmarkedArticles = (props: Props) => {
                     </td>
                     <td className='text-center font-medium'>
                       <span
-                        className='mr-2 cursor-pointer rounded bg-red-100 px-2.5 py-0.5 text-sm font-medium text-red-800 dark:bg-red-200 dark:text-red-900'
+                        className='mr-2 cursor-pointer rounded bg-red-100 px-2.5 text-md px-2.5 py-2 text-red-800 dark:bg-red-200 dark:text-red-900'
                         onClick={() => removeBookmark(article.id)}
                       >
                         いいね解除
