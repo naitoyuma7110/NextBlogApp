@@ -2,20 +2,22 @@ import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import prisma from '@/lib/prisma';
 import { ArticlesProps } from '@/types/ArticlesProps';
-import Router from 'next/router';
-import Link from 'next/link';
 
 import MypageBookmarkedArticles from '@/components/mypage/MypageBookmarkedArticles';
 import MypageMypostArticles from '@/components/mypage/MypageMypostArticles';
+import UserProfile from '../components/mypage/UserProfiel';
+import { User } from '@prisma/client';
 
 type Props = {
-  bookmarkedArticle: ArticlesProps[];
-  myPostArticle: ArticlesProps[];
+  bookmarkedArticles: ArticlesProps[];
+  myPostArticles: ArticlesProps[];
+  user: User;
 };
 
 const Mypage = (props: Props) => {
   return (
     <>
+      <UserProfile {...props}></UserProfile>
       <MypageMypostArticles {...props}></MypageMypostArticles>
       <MypageBookmarkedArticles {...props}></MypageBookmarkedArticles>
     </>
@@ -47,21 +49,21 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
           user: true,
         },
       },
+      author: true,
     },
   });
-  const bookmarkedArticle = JSON.parse(JSON.stringify(bookmarkedData));
+  const bookmarkedArticles = JSON.parse(JSON.stringify(bookmarkedData));
 
   // console.log(bookmarkedArticle[0].isLikedUsers);
 
-  const sessionUser = await prisma.user.findUnique({
+  const loginUser = await prisma.user.findUnique({
     where: {
       email: session.user?.email as string,
     },
   });
-  const userId = sessionUser?.id;
   const myPostArticleData = await prisma.article.findMany({
     where: {
-      authorUserId: userId,
+      authorUserId: loginUser?.id,
     },
     include: {
       isLikedUsers: {
@@ -69,16 +71,16 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
           user: true,
         },
       },
+      author: true,
     },
   });
-  const myPostArticle = JSON.parse(JSON.stringify(myPostArticleData));
-
-  console.log(myPostArticle[0]);
+  const myPostArticles = JSON.parse(JSON.stringify(myPostArticleData));
 
   return {
     props: {
-      bookmarkedArticle,
-      myPostArticle,
+      bookmarkedArticles,
+      myPostArticles,
+      user: loginUser,
     },
   };
 };

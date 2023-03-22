@@ -23,21 +23,18 @@ const Articles = (props: Props) => {
                     <Image
                       src={article.author?.image || '/images/github-icon.png'}
                       alt='author'
-                      width={40}
-                      height={40}
+                      width={50}
+                      height={50}
                       className='rounded-full shadow-lg'
                     />
                   </div>
                   <div className='flex-1 min-w-0 '>
-                    <p className='text-sm font-medium text-gray-600 truncate dark:text-white'>
+                    <p className='text-lg font-medium text-gray-600 truncate '>
                       {article.author?.name}
                     </p>
-                    <p className='text-sm text-gray-500 truncate dark:text-gray-400'>
-                      {article.author?.email}
+                    <p className='text-sm text-gray-500 truncate '>
+                      {`${article.isLikedUsers?.length} Likes`}
                     </p>
-                  </div>
-                  <div className='inline-flex items-center text-base font-semibold text-gray-900 dark:text-white'>
-                    投稿者のプロフィール
                   </div>
                 </div>
                 <div className='flex-auto py-3'>
@@ -67,6 +64,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const articles = await prisma.article.findMany({
     include: {
       author: true,
+      isLikedUsers: true,
     },
   });
   return {

@@ -4,9 +4,10 @@ import prisma from '@/lib/prisma';
 import { ArticlesProps } from '@/types/ArticlesProps';
 import Router from 'next/router';
 import Link from 'next/link';
+import Image from 'next/image';
 
 type Props = {
-  bookmarkedArticle: ArticlesProps[];
+  bookmarkedArticles: ArticlesProps[];
 };
 
 async function removeBookmark(id: number): Promise<void> {
@@ -24,7 +25,7 @@ const MypageBookmarkedArticles = (props: Props) => {
   console.log(props);
   return (
     <div className='container mx-auto px-6 py-16'>
-      {props.bookmarkedArticle.length > 0 ? (
+      {props.bookmarkedArticles.length > 0 ? (
         <div className='mx-auto sm:w-8/12 lg:w-6/12 xl:w-[40%]'>
           <div className='overflow-x-auto'>
             <h1 className='mb-8 text-center text-3xl'>
@@ -32,12 +33,21 @@ const MypageBookmarkedArticles = (props: Props) => {
             </h1>
             <table className='w-full table-auto'>
               <tbody className='divide-y divide-slate-100 text-sm font-medium'>
-                {props.bookmarkedArticle.map((article) => (
+                {props.bookmarkedArticles.map((article) => (
                   <tr
                     key={article.id}
                     className='group transition-colors hover:bg-gray-100'
                   >
-                    <td className='py-4 pl-10'>
+                    <td>
+                      <Image
+                        src={article.author?.image || '/images/github-icon.png'}
+                        alt='author'
+                        width={40}
+                        height={40}
+                        className='rounded-full shadow-lg'
+                      />
+                    </td>
+                    <td className='py-4 pl-4'>
                       <div>
                         <p
                           onClick={() => Router.push(`/articles/${article.id}`)}
@@ -47,8 +57,8 @@ const MypageBookmarkedArticles = (props: Props) => {
                         </p>
                         <div className='font-medium text-gray-400'>
                           {article.isLikedUsers.length > 1
-                            ? `${article.isLikedUsers.length} users`
-                            : `${article.isLikedUsers.length} user`}{' '}
+                            ? `${article.isLikedUsers.length} users `
+                            : `${article.isLikedUsers.length} user `}
                           bookmarked this article
                         </div>
                       </div>
@@ -68,7 +78,6 @@ const MypageBookmarkedArticles = (props: Props) => {
           </div>
         </div>
       ) : (
-        // ブックマークしている記事が存在しない場合、記事の一覧ページへのリンクを表示します
         <div className='text-center'>
           <h1 className='text-3xl'>No articles bookmarked</h1>
           <Link href='/articles'>

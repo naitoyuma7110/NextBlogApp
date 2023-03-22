@@ -1,6 +1,9 @@
-import { Article, User } from '@prisma/client';
+import { Article, Bookmark, User } from '@prisma/client';
 
 export type ArticlesProps = Article & {
-  isLikedUsers: User[];
+  isLikedUsers: Bookmark &
+    {
+      user: User;
+    }[];
   author: User;
 };
