@@ -1,6 +1,3 @@
-import { GetServerSideProps } from 'next';
-import { getSession } from 'next-auth/react';
-import prisma from '@/lib/prisma';
 import { ArticlesProps } from '@/types/ArticlesProps';
 import Router from 'next/router';
 import Link from 'next/link';
