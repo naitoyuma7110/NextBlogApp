@@ -39,10 +39,10 @@ const MypageMypostArticles = (props: Props) => {
                           {article.title}
                         </p>
                         <div className='font-medium text-gray-400'>
-                          {article.isLikedUsers.length > 1
-                            ? `${article.isLikedUsers.length}users `
-                            : `${article.isLikedUsers.length}user `}
-                          bookmarked this article
+                          {article.isLikedUsers.length > 1 ||
+                          article.isLikedUsers.length === 0
+                            ? `${article.isLikedUsers.length} Likes `
+                            : `${article.isLikedUsers.length} Like `}
                           <>
                             {article.isLikedUsers && (
                               <div className='flex mb-5 -space-x-4'>
@@ -68,7 +68,7 @@ const MypageMypostArticles = (props: Props) => {
                         </div>
                       </div>
                     </td>
-                    <td className='text-center font-medium py-4 pl-4'>
+                    <td className='text-center font-medium py-8 pl-4 align-top'>
                       <span
                         className='mr-2 mt-4 cursor-pointer rounded bg-green-100 text-md px-2.5 py-2 text-green-800 dark:bg-green-200 dark:text-green-900'
                         onClick={() =>
