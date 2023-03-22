@@ -23,13 +23,16 @@ const ArticlesAuthorPost = (props: Props) => {
                   key={article.id}
                   className='group transition-colors hover:bg-gray-100'
                 >
-                  <td className='py-4 pl-4'>
-                    <div>
+                  <td className='py-4 px-4 space-x-4'>
+                    <div className='flex-auto'>
                       <p
                         onClick={() => Router.push(`/articles/${article.id}`)}
                         className='cursor-pointer  text-lg font-semibold text-gray-700'
                       >
                         {article.title}
+                      </p>
+                      <p className='text-blueGray-500 line-clamp-3'>
+                        {article.content}
                       </p>
                       <div className='font-medium text-gray-400'>
                         {article.isLikedUsers.length > 1 ||

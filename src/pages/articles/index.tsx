@@ -31,7 +31,7 @@ const Articles = (props: Props) => {
                   </div>
                   <div className='flex-1 min-w-0'>
                     <Link
-                      className='text-lg font-medium text-gray-600 truncate'
+                      className='text-lg font-medium text-gray-600'
                       href={`/articles/author/${article.authorUserId}`}
                     >
                       {article.author?.name || 'No name'}
@@ -48,7 +48,7 @@ const Articles = (props: Props) => {
                   >
                     {article.title}
                   </h6>
-                  <p className='text-blueGray-500 mb-4 truncate hover:text-clip'>
+                  <p className='text-blueGray-500 mb-4 line-clamp-3 hover:text-clip'>
                     {article.content}
                   </p>
                 </div>
