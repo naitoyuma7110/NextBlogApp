@@ -1,16 +1,19 @@
 import { GetServerSideProps } from 'next';
 import { getSession } from 'next-auth/react';
 import prisma from '@/lib/prisma';
-import { Article, User } from '@prisma/client';
+import { Article, Bookmark, User } from '@prisma/client';
 import Router from 'next/router';
 import Image from 'next/image';
-
-type ArticleWithBookmarkUser = Article & {
-  isLikedUsers: User[];
-};
+import Link from 'next/link';
 
 type ArticleProps = {
-  article: ArticleWithBookmarkUser;
+  article: Article & {
+    author: User;
+    isLikedUsers: Bookmark &
+      {
+        user: User[];
+      }[];
+  };
   isBookmarked: boolean;
 };
 
@@ -36,12 +39,28 @@ const Article = (props: ArticleProps) => {
     <div className='container mx-auto'>
       <div className='my-12 flex justify-center p-12'>
         <div className='ml-auto mr-auto w-full lg:w-8/12'>
-          <Image
-            src='/images/github-icon.png'
-            alt='author'
-            width={60}
-            height={60}
-          />
+          <div className='flex items-center space-x-4 cursor-pointer'>
+            <div className='flex-shrink-0'>
+              <Image
+                src={props.article.author?.image || '/images/github-icon.png'}
+                alt='author'
+                width={50}
+                height={50}
+                className='rounded-full shadow-lg'
+              />
+            </div>
+            <div className='flex-1 min-w-0'>
+              <Link
+                className='text-lg font-medium text-gray-600 truncate'
+                href={`/articles/author/${props.article.authorUserId}`}
+              >
+                {props.article.author?.name || 'No name'}
+              </Link>
+              <p className='text-sm text-gray-500 truncate '>
+                {`${props.article.isLikedUsers?.length} Likes`}
+              </p>
+            </div>
+          </div>
           <h3 className='my-3 text-3xl font-semibold'>{props.article.title}</h3>
           <p className='text-blueGray-500 mt-4 text-lg leading-relaxed'>
             {props.article.content}
@@ -50,22 +69,22 @@ const Article = (props: ArticleProps) => {
             // ブックマーク済：ログイン中のユーザーがブックマークユーザーに含まれる
             <button
               type='button'
-              className='mt-5 inline-flex items-center rounded-lg bg-red-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800'
+              className='mt-5 inline-flex items-center rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-600 focus:outline-none '
               onClick={() => removeBookmark(props.article.id)}
             >
-              Remove Bookmark
-              <span className='ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-red-200 text-xs font-semibold text-red-800'>
+              いいね済み
+              <span className='ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-200 text-xs  text-blue-800'>
                 {props.article.isLikedUsers.length}
               </span>
             </button>
           ) : (
             <button
               type='button'
-              className='mt-5 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+              className='mt-5 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none '
               onClick={() => addBookmark(props.article.id)}
             >
-              Bookmark this article
-              <span className='ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-200 text-xs font-semibold text-blue-800'>
+              いいね
+              <span className='ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-200 text-xs  text-blue-800'>
                 {props.article.isLikedUsers.length}
               </span>
             </button>
@@ -98,6 +117,7 @@ export const getServerSideProps: GetServerSideProps = async ({
           user: true,
         },
       },
+      author: true,
     },
   });
 
