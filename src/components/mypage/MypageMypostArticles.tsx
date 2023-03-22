@@ -43,28 +43,26 @@ const MypageMypostArticles = (props: Props) => {
                           article.isLikedUsers.length === 0
                             ? `${article.isLikedUsers.length} Likes `
                             : `${article.isLikedUsers.length} Like `}
-                          <>
-                            {article.isLikedUsers && (
-                              <div className='flex mb-5 -space-x-4'>
-                                {article.isLikedUsers.map((user, i) => {
-                                  return (
-                                    <span key={i} className='mt-1'>
-                                      <Image
-                                        className='border-2 border-white rounded-full'
-                                        src={
-                                          user.user.image ||
-                                          '/images/github-icon.png'
-                                        }
-                                        width={30}
-                                        height={30}
-                                        alt='userIcon'
-                                      />
-                                    </span>
-                                  );
-                                })}
-                              </div>
-                            )}
-                          </>
+                          {article.isLikedUsers && (
+                            <div className='flex mb-5 -space-x-4'>
+                              {article.isLikedUsers.map((user, i) => {
+                                return (
+                                  <span key={i} className='mt-1'>
+                                    <Image
+                                      className='border-2 border-white rounded-full'
+                                      src={
+                                        user.user.image ||
+                                        '/images/github-icon.png'
+                                      }
+                                      width={30}
+                                      height={30}
+                                      alt='userIcon'
+                                    />
+                                  </span>
+                                );
+                              })}
+                            </div>
+                          )}
                         </div>
                       </div>
                     </td>
