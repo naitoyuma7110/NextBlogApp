@@ -1,9 +1,4 @@
-import { GetServerSideProps } from 'next';
-import { getSession, useSession } from 'next-auth/react';
-import prisma from '@/lib/prisma';
-import { ArticlesProps } from '@/types/ArticlesProps';
-import Router from 'next/router';
-import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import Image from 'next/image';
 import { User } from '@prisma/client';
 
@@ -67,11 +62,12 @@ const UserProfile = (props: Props) => {
       </div>
       <div className='flex flex-col items-center pb-10'>
         <Image
-          src={props.user!.image || '/images/github-icon.png'}
+          src={props.user?.image || '/images/github-icon.png'}
           alt='author'
           width={80}
           height={80}
           className='rounded-full shadow-lg mb-4'
+          priority={true}
         />
         <h5 className='mb-1 text-xl font-medium text-gray-700 '>
           {props.user.name}

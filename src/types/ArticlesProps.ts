@@ -5,5 +5,5 @@ export type ArticlesProps = Article & {
     {
       user: User;
     }[];
-  author: User;
+  author?: User;
 };
