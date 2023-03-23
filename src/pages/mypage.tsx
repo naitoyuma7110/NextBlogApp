@@ -7,6 +7,7 @@ import MypageBookmarkedArticles from '@/components/mypage/MypageBookmarkedArticl
 import MypageMypostArticles from '@/components/mypage/MypageMypostArticles';
 import UserProfile from '../components/mypage/UserProfiel';
 import { User } from '@prisma/client';
+import { useEffect, useState } from 'react';
 
 type Props = {
   bookmarkedArticles: ArticlesProps[];
