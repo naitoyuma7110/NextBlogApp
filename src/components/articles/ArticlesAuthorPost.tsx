@@ -16,57 +16,48 @@ const ArticlesAuthorPost = (props: Props) => {
         <div className='overflow-x-auto'>
           <h1 className='mb-8 text-center text-3xl'>All articles</h1>
 
-          <table className='w-full table-auto'>
-            <tbody className='divide-y divide-slate-100 text-sm font-medium'>
-              {props.articles.map((article) => (
-                <tr
-                  key={article.id}
-                  className='group transition-colors hover:bg-gray-100'
+          {props.articles.map((article) => (
+            <div key={article.id}>
+              <div className='p-2 my-4 hover:bg-gray-100'>
+                <div
+                  onClick={() => Router.push(`/articles/${article.id}`)}
+                  className='cursor-pointer text-xl mb-2 font-semibold text-gray-700'
                 >
-                  <td className='py-4 px-4 space-x-4'>
-                    <div className='flex-auto'>
-                      <p
-                        onClick={() => Router.push(`/articles/${article.id}`)}
-                        className='cursor-pointer text-xl mb-2 font-semibold text-gray-700'
-                      >
-                        {article.title}
-                      </p>
-                      <p className='text-gray-400 line-clamp-3 hover:text-clip mb-2'>
-                        {article.content}
-                      </p>
-                      <div className='font-medium text-gray-400'>
-                        {article.isLikedUsers.length > 1 ||
-                        article.isLikedUsers.length === 0
-                          ? `${article.isLikedUsers.length} Likes `
-                          : `${article.isLikedUsers.length} Like `}
-
-                        {article.isLikedUsers && (
-                          <div className='flex mb-5 -space-x-4'>
-                            {article.isLikedUsers.map((user, i) => {
-                              return (
-                                <span key={i} className='mt-1'>
-                                  <Image
-                                    className='border-2 border-white rounded-full'
-                                    src={
-                                      user.user.image ||
-                                      '/images/github-icon.png'
-                                    }
-                                    width={30}
-                                    height={30}
-                                    alt='userIcon'
-                                  />
-                                </span>
-                              );
-                            })}
-                          </div>
-                        )}
+                  {article.title}
+                </div>
+                <div className='text-gray-400 line-clamp-3 hover:text-clip mb-2'>
+                  {article.content}
+                </div>
+                <div className='flex justify-between'>
+                  <div className='font-medium text-gray-400'>
+                    {article.isLikedUsers.length > 1 ||
+                    article.isLikedUsers.length === 0
+                      ? `${article.isLikedUsers.length} Likes `
+                      : `${article.isLikedUsers.length} Like `}
+                    {article.isLikedUsers && (
+                      <div className='flex mb-2 space-x-4'>
+                        {article.isLikedUsers.map((user, i) => {
+                          return (
+                            <span key={i} className='mt-1'>
+                              <Image
+                                className='border-2 border-white rounded-full'
+                                src={
+                                  user.user.image || '/images/github-icon.png'
+                                }
+                                width={30}
+                                height={30}
+                                alt='userIcon'
+                              />
+                            </span>
+                          );
+                        })}
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

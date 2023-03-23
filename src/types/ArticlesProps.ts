@@ -7,3 +7,13 @@ export type ArticlesProps = Article & {
     }[];
   author?: User;
 };
+
+// 記事情報
+export interface testProps {
+  articles: (Article & {
+    author?: User | null;
+    isLikedUsers?: Bookmark & {
+      user?: User[];
+    };
+  })[];
+}
