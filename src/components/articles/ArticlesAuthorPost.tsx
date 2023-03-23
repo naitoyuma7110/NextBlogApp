@@ -27,11 +27,11 @@ const ArticlesAuthorPost = (props: Props) => {
                     <div className='flex-auto'>
                       <p
                         onClick={() => Router.push(`/articles/${article.id}`)}
-                        className='cursor-pointer  text-lg font-semibold text-gray-700'
+                        className='cursor-pointer text-xl mb-2 font-semibold text-gray-700'
                       >
                         {article.title}
                       </p>
-                      <p className='text-blueGray-500 line-clamp-3'>
+                      <p className='text-gray-400 line-clamp-3 hover:text-clip mb-2'>
                         {article.content}
                       </p>
                       <div className='font-medium text-gray-400'>
