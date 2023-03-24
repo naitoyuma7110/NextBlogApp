@@ -1,15 +1,8 @@
 import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
-import { Article, Bookmark, User } from '@prisma/client';
 import Articles from '@/components/Articles';
-import { GetStaticProps } from 'next';
-import Router from 'next/router';
 import { ArticlesProps, testProps } from '@/types/ArticlesProps';
-
-// Prisma Client をインスタンス化したもの利用して、データベースからデータを取得します
-import prisma from '@/lib/prisma';
-import Image from 'next/image';
-import Link from 'next/link';
 
 const ArticleWithLikesProps: testProps = {
   articles: [
@@ -27,6 +20,7 @@ const ArticleWithLikesProps: testProps = {
   ],
 };
 
+// with author isLikedUsers-count
 const allProps: testProps = {
   articles: [
     {
@@ -38,7 +32,7 @@ const allProps: testProps = {
         id: 1,
         name: '著者A',
         email: 'example@test.com',
-        image: 'demo',
+        image: '/demo',
         emailVerified: null,
       },
       isLikedUsers: {
@@ -48,12 +42,31 @@ const allProps: testProps = {
         user: [],
       },
     },
+    {
+      id: 2,
+      title: '記事2',
+      content: '記事2の内容',
+      authorUserId: 2,
+      author: {
+        id: 2,
+        name: '著者A',
+        email: 'example@test.com',
+        image: '/demo',
+        emailVerified: null,
+      },
+      isLikedUsers: {
+        id: 2,
+        userId: 2,
+        articleId: 2,
+        user: [],
+      },
+    },
   ],
 };
 
-describe('propsとしてarticlesとisLikedUsersのみコンポーネントに渡す', () => {
-  const { container } = render(<Articles {...allProps} />);
+describe('propsとして記事に加え,「著者」、「お気に入りユーザー」をコンポーネントに渡す', () => {
   it('全ての記事のtitle,contentが描画される', () => {
+    render(<Articles {...allProps} />);
     allProps.articles.forEach((article) => {
       const title = screen.getByText(article.title);
       const content = screen.getByText(article.content);
@@ -62,9 +75,30 @@ describe('propsとしてarticlesとisLikedUsersのみコンポーネントに渡
     });
   });
 
-  it('Authorのimage-iconが全て描画される', () => {
-    const image = container.querySelector('Image');
-    expect(image).toBeInTheDocument();
+  it('描画されたtitleが記事詳細ページへのリンクを持つ', () => {
+    render(<Articles {...allProps} />);
+    allProps.articles.forEach((article) => {
+      const title = screen.getByText(article.title);
+      expect(title).toHaveAttribute('href', `/articles/${article.id}`);
+    });
   });
-  it('authorが渡されると名前が描画されLinkが設置される', () => {});
+  it('全ての著者のイメージアイコンが描画される', () => {
+    render(<Articles {...allProps} />);
+    const img = screen.getAllByAltText('author');
+    expect(img.length).toBe(allProps.articles.length);
+  });
+  it('全ての著者の名前が描画される', () => {
+    render(<Articles {...allProps} />);
+    allProps.articles.forEach((article) => {
+      const name = screen.getByText(article.author!.name!);
+      expect(name).toBeInTheDocument();
+    });
+  });
+  it('全ての著者の', () => {
+    render(<Articles {...allProps} />);
+    allProps.articles.forEach((article) => {
+      const name = screen.getByText(article.author!.name!);
+      expect(name).toBeInTheDocument();
+    });
+  });
 });

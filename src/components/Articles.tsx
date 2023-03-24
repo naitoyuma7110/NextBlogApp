@@ -34,7 +34,8 @@ const Articles = (props: testProps) => {
                         className='text-lg font-medium text-gray-600'
                         href={`/articles/author/${article.author.id}`}
                       >
-                        {article.author.name || 'No Name'}
+                        {/* {article.author.name || 'No Name'} */}
+                        {article.author.name}
                       </Link>
                     )}
                     {article.isLikedUsers?.user && (
@@ -45,12 +46,12 @@ const Articles = (props: testProps) => {
                   </div>
                 </div>
                 <div className='flex-auto py-3'>
-                  <h6
+                  <Link
                     className='mb-1 text-xl font-semibold cursor-pointer'
-                    onClick={() => Router.push(`/articles/${article.id}`)}
+                    href={`/articles/${article.id}`}
                   >
                     {article.title}
-                  </h6>
+                  </Link>
                   <p className='text-blueGray-500 mb-4 line-clamp-3 hover:text-clip'>
                     {article.content}
                   </p>
