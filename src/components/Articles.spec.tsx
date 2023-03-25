@@ -11,11 +11,13 @@ const ArticleWithLikesProps: testProps = {
       title: '記事1',
       content: '記事1の内容',
       authorUserId: 1,
-      isLikedUsers: {
-        id: 1,
-        userId: 1,
-        articleId: 1,
-      },
+      isLikedUsers: [
+        {
+          id: 1,
+          userId: 1,
+          articleId: 1,
+        },
+      ],
     },
   ],
 };
@@ -35,12 +37,20 @@ const allProps: testProps = {
         image: '/demo',
         emailVerified: null,
       },
-      isLikedUsers: {
-        id: 1,
-        userId: 1,
-        articleId: 1,
-        user: [],
-      },
+      isLikedUsers: [
+        {
+          id: 1,
+          userId: 1,
+          articleId: 1,
+          user: {
+            id: 1,
+            name: 'likes user',
+            email: 'string@com',
+            emailVerified: null,
+            image: '/test',
+          },
+        },
+      ],
     },
     {
       id: 2,
@@ -54,12 +64,13 @@ const allProps: testProps = {
         image: '/demo',
         emailVerified: null,
       },
-      isLikedUsers: {
-        id: 2,
-        userId: 2,
-        articleId: 2,
-        user: [],
-      },
+      isLikedUsers: [
+        {
+          id: 2,
+          userId: 2,
+          articleId: 2,
+        },
+      ],
     },
   ],
 };

@@ -10,11 +10,14 @@ export type ArticlesProps = Article & {
 
 // 記事情報
 export interface testProps {
-  articles: (Article & {
-    author?: User | null;
-    isLikedUsers?: Bookmark &
-      {
-        user?: User;
-      }[];
-  })[];
+  articles: Array<
+    Article & {
+      author?: User | undefined;
+      isLikedUsers?: Array<
+        Bookmark & {
+          user?: User | undefined;
+        }
+      >;
+    }
+  >;
 }
