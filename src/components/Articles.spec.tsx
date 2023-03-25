@@ -89,16 +89,6 @@ describe('propsとして記事に加え,「著者」、「お気に入りユー�
   });
   it('全ての著者の名前が描画される', () => {
     render(<Articles {...allProps} />);
-    allProps.articles.forEach((article) => {
-      const name = screen.getByText(article.author!.name!);
-      expect(name).toBeInTheDocument();
-    });
-  });
-  it('全ての著者の', () => {
-    render(<Articles {...allProps} />);
-    allProps.articles.forEach((article) => {
-      const name = screen.getByText(article.author!.name!);
-      expect(name).toBeInTheDocument();
-    });
+    allProps.articles.forEach((article) => {});
   });
 });

@@ -34,13 +34,12 @@ const Articles = (props: testProps) => {
                         className='text-lg font-medium text-gray-600'
                         href={`/articles/author/${article.author.id}`}
                       >
-                        {/* {article.author.name || 'No Name'} */}
-                        {article.author.name}
+                        {article.author.name || 'No Name'}
                       </Link>
                     )}
-                    {article.isLikedUsers?.user && (
+                    {article.isLikedUsers && (
                       <p className='text-sm text-gray-500 truncate '>
-                        {`${article.isLikedUsers.user.length} Likes`}
+                        {`${article.isLikedUsers.length} Likes`}
                       </p>
                     )}
                   </div>
@@ -72,7 +71,11 @@ export const getStaticProps: GetStaticProps = async () => {
   const articles = await prisma.article.findMany({
     include: {
       author: true,
-      isLikedUsers: true,
+      isLikedUsers: {
+        include: {
+          user: true,
+        },
+      },
     },
   });
   return {
