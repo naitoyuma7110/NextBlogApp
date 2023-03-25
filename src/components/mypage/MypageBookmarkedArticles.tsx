@@ -25,9 +25,7 @@ const MypageBookmarkedArticles = (props: Props) => {
       {props.bookmarkedArticles.length > 0 ? (
         <div className='mx-auto sm:w-8/12 lg:w-6/12 xl:w-[40%]'>
           <div className='overflow-x-auto'>
-            <h1 className='mb-8 text-center text-3xl'>
-              All articles you bookmarked
-            </h1>
+            <h1 className='mb-8 text-center text-3xl'>All articles you like</h1>
             <table className='w-full table-auto'>
               <tbody className='divide-y divide-slate-100 text-sm font-medium'>
                 {props.bookmarkedArticles.map((article) => (
@@ -52,12 +50,32 @@ const MypageBookmarkedArticles = (props: Props) => {
                         >
                           {article.title}
                         </p>
-                        <div className='font-medium text-gray-400'>
-                          {article.isLikedUsers.length > 1
-                            ? `${article.isLikedUsers.length} users `
-                            : `${article.isLikedUsers.length} user `}
-                          bookmarked this article
-                        </div>
+                        {article.isLikedUsers && (
+                          <div className='flex items-center'>
+                            <div className='flex mr-2 -space-x-4'>
+                              {article.isLikedUsers.map((user, i) => {
+                                return (
+                                  <span key={i} className=''>
+                                    <Image
+                                      className='border-2 border-white rounded-full'
+                                      src={
+                                        user.user.image ||
+                                        '/images/github-icon.png'
+                                      }
+                                      width={25}
+                                      height={25}
+                                      alt='userIcon'
+                                    />
+                                  </span>
+                                );
+                              })}
+                            </div>
+
+                            <div className='text-xs text-gray-400'>
+                              {`${article.isLikedUsers.length} Likes`}
+                            </div>
+                          </div>
+                        )}
                       </div>
                     </td>
                     <td className='text-center font-medium'>
@@ -76,7 +94,7 @@ const MypageBookmarkedArticles = (props: Props) => {
         </div>
       ) : (
         <div className='text-center'>
-          <h1 className='text-3xl'>No articles bookmarked</h1>
+          <h1 className='text-3xl'>No articles you like</h1>
           <Link href='/articles'>
             <span className='group mt-5 inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-purple-600 to-blue-500 p-0.5 font-medium text-gray-900 hover:text-white focus:ring-4 focus:ring-blue-300 group-hover:from-purple-600 group-hover:to-blue-500 dark:text-white dark:focus:ring-blue-800'>
               <span className='rounded-md bg-white px-5 py-2.5 transition-all duration-75 ease-in group-hover:bg-opacity-0 dark:bg-gray-900'>

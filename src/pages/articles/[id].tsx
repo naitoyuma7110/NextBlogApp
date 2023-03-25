@@ -11,7 +11,7 @@ type ArticleProps = {
     author: User;
     isLikedUsers: Bookmark &
       {
-        user: User[];
+        user: User;
       }[];
   };
   isBookmarked: boolean;
@@ -51,13 +51,13 @@ const Article = (props: ArticleProps) => {
             </div>
             <div className='flex-1 min-w-0'>
               <Link
-                className='text-lg font-medium text-gray-600 truncate'
+                className='text-lg font-medium text-gray-600'
                 href={`/articles/author/${props.article.authorUserId}`}
               >
                 {props.article.author?.name || 'No name'}
               </Link>
               <p className='text-sm text-gray-500 truncate '>
-                {`${props.article.isLikedUsers?.length} Likes`}
+                {props.article.author?.email || 'No Publish'}
               </p>
             </div>
           </div>
@@ -65,30 +65,46 @@ const Article = (props: ArticleProps) => {
           <p className='text-blueGray-500 mt-4 text-lg leading-relaxed'>
             {props.article.content}
           </p>
-          {props.isBookmarked ? (
-            // ブックマーク済：ログイン中のユーザーがブックマークユーザーに含まれる
-            <button
-              type='button'
-              className='mt-5 inline-flex items-center rounded-lg bg-blue-500 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-600 focus:outline-none '
-              onClick={() => removeBookmark(props.article.id)}
-            >
-              いいね済み
-              <span className='ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-200 text-xs  text-blue-800'>
-                {props.article.isLikedUsers.length}
-              </span>
-            </button>
-          ) : (
-            <button
-              type='button'
-              className='mt-5 inline-flex items-center rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none '
-              onClick={() => addBookmark(props.article.id)}
-            >
-              いいね
-              <span className='ml-2 inline-flex h-4 w-4 items-center justify-center rounded-full bg-blue-200 text-xs  text-blue-800'>
-                {props.article.isLikedUsers.length}
-              </span>
-            </button>
-          )}
+          <div className='flex items-center justify-between mt-2 h-10'>
+            <div className='flex items-center mb-4'>
+              <div className='flex mr-2 -space-x-4'>
+                {props.article.isLikedUsers.map((user, i) => {
+                  return (
+                    <span key={i} className=''>
+                      <Image
+                        className='border-2 border-white rounded-full'
+                        src={user.user.image || '/images/github-icon.png'}
+                        width={30}
+                        height={30}
+                        alt='userIcon'
+                      />
+                    </span>
+                  );
+                })}
+              </div>
+
+              <div className='text-sm text-gray-400'>
+                {`${props.article.isLikedUsers.length} Likes`}
+              </div>
+            </div>
+            {props.isBookmarked ? (
+              <button
+                type='button'
+                className='cursor-pointer rounded bg-blue-400 text-md px-2.5 py-2 text-white dark:bg-blue-200 dark:text-blue-900'
+                onClick={() => removeBookmark(props.article.id)}
+              >
+                いいね済み
+              </button>
+            ) : (
+              <button
+                type='button'
+                className='cursor-pointer rounded bg-blue-600 text-md px-2.5 py-2 text-white dark:bg-blue-200 dark:text-blue-900'
+                onClick={() => addBookmark(props.article.id)}
+              >
+                いいね
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

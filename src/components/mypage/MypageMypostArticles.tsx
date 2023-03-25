@@ -196,33 +196,31 @@ const MypageMypostArticles = (props: Props) => {
                   <div className='text-gray-400 line-clamp-3 hover:text-clip mb-2'>
                     {article.content}
                   </div>
-                  <div className='flex justify-between'>
-                    <div className='font-medium text-gray-400'>
-                      {article.isLikedUsers.length > 1 ||
-                      article.isLikedUsers.length === 0
-                        ? `${article.isLikedUsers.length} Likes `
-                        : `${article.isLikedUsers.length} Like `}
-                      {article.isLikedUsers && (
-                        <div className='flex mb-2 space-x-4'>
-                          {article.isLikedUsers.map((user, i) => {
-                            return (
-                              <span key={i} className='mt-1'>
-                                <Image
-                                  className='border-2 border-white rounded-full'
-                                  src={
-                                    user.user.image || '/images/github-icon.png'
-                                  }
-                                  width={30}
-                                  height={30}
-                                  alt='userIcon'
-                                />
-                              </span>
-                            );
-                          })}
-                        </div>
-                      )}
+                  {article.isLikedUsers && (
+                    <div className='flex items-center'>
+                      <div className='flex mr-2 -space-x-4'>
+                        {article.isLikedUsers.map((user, i) => {
+                          return (
+                            <span key={i} className=''>
+                              <Image
+                                className='border-2 border-white rounded-full'
+                                src={
+                                  user.user.image || '/images/github-icon.png'
+                                }
+                                width={30}
+                                height={30}
+                                alt='userIcon'
+                              />
+                            </span>
+                          );
+                        })}
+                      </div>
+
+                      <div className='text-sm text-gray-400'>
+                        {`${article.isLikedUsers.length} Likes`}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
                   <div className='text-end font-medium mx-2 mb-4'>
                     <span

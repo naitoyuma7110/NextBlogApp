@@ -12,8 +12,9 @@ export type ArticlesProps = Article & {
 export interface testProps {
   articles: (Article & {
     author?: User | null;
-    isLikedUsers?: Bookmark & {
-      user?: User[];
-    };
+    isLikedUsers?: Bookmark &
+      {
+        user?: User;
+      }[];
   })[];
 }

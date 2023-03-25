@@ -37,11 +37,11 @@ const Articles = (props: Props) => {
                       {article.author?.name || 'No name'}
                     </Link>
                     <p className='text-sm text-gray-500 truncate '>
-                      {`${article.isLikedUsers?.length} Likes`}
+                      {article.author?.email || 'No Publish'}
                     </p>
                   </div>
                 </div>
-                <div className='flex-auto py-3'>
+                <div className='flex-auto pt-3'>
                   <h6
                     className='mb-1 text-xl font-semibold cursor-pointer'
                     onClick={() => Router.push(`/articles/${article.id}`)}
@@ -51,6 +51,27 @@ const Articles = (props: Props) => {
                   <p className='text-blueGray-500 mb-4 line-clamp-3 hover:text-clip'>
                     {article.content}
                   </p>
+                </div>
+                <div className='flex items-center mb-4'>
+                  <div className='flex mr-2 -space-x-4'>
+                    {article.isLikedUsers.map((user, i) => {
+                      return (
+                        <span key={i} className=''>
+                          <Image
+                            className='border-2 border-white rounded-full'
+                            src={user.user.image || '/images/github-icon.png'}
+                            width={30}
+                            height={30}
+                            alt='userIcon'
+                          />
+                        </span>
+                      );
+                    })}
+                  </div>
+
+                  <div className='text-sm text-gray-400'>
+                    {`${article.isLikedUsers.length} Likes`}
+                  </div>
                 </div>
               </div>
             </div>
@@ -68,7 +89,11 @@ export const getStaticProps: GetStaticProps = async () => {
   const articles = await prisma.article.findMany({
     include: {
       author: true,
-      isLikedUsers: true,
+      isLikedUsers: {
+        include: {
+          user: true,
+        },
+      },
     },
   });
   return {
