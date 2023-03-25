@@ -14,8 +14,8 @@ const login = ({
       <Image
         src='/images/github-icon.png'
         alt='github'
-        width={150}
-        height={150}
+        width={100}
+        height={100}
       />
       <div className='text-center '>
         <div className='mx-auto max-w-3xl'>

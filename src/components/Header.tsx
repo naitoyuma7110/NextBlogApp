@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { signIn, signOut, useSession } from 'next-auth/react';
+import CookieLogin from '../pages/cookieLogin';
 
 const Header = () => {
   // session情報の取得
@@ -31,11 +32,6 @@ const Header = () => {
                       </Link>
                     </li>
                     <li className='py-1 px-4 text-white no-underline'>
-                      <Link href='/articles/post'>
-                        <span>Post</span>
-                      </Link>
-                    </li>
-                    <li className='py-1 px-4 text-white no-underline'>
                       <button onClick={() => signOut()}>
                         <span>Log out</span>
                       </button>
@@ -43,11 +39,18 @@ const Header = () => {
                   </>
                 )}
                 {status !== 'loading' && !session && (
-                  <li className='py-1 px-4 text-white no-underline'>
-                    <button onClick={() => signIn()}>
-                      <span>Log in</span>
-                    </button>
-                  </li>
+                  <>
+                    <li className='py-1 px-4 text-white no-underline'>
+                      <button onClick={() => signIn()}>
+                        <span>Log in</span>
+                      </button>
+                    </li>
+                    <li className='py-1 px-4 text-white no-underline'>
+                      <Link href='/cookieLogin'>
+                        <span>CookieLogin</span>
+                      </Link>
+                    </li>
+                  </>
                 )}
               </ul>
             </div>
