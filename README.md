@@ -1,4 +1,4 @@
-## 認証付き記事投稿アプリ(NextAuth,Prisma)
+## トークン認証,記事投稿/いいね機能(NextAuth,Prisma)
 
 参考：https://zenn.dev/farstep/books/7acd1a7fee7e18
 
